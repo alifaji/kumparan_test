@@ -11,6 +11,7 @@ exports.get = async (req, res) => {
 	let filterAuthor = req.query.author
 	
 	let options = {
+		order:[['updatedAt','DESC']],
 		where: {}
 	}
 
@@ -38,6 +39,8 @@ exports.get = async (req, res) => {
 	} else {
 
 		const article = await _data_article.findAll(options)
+
+		console.log(options)
 
 		if(article.length <= 0 ){
 			return res.status(401).send(response)

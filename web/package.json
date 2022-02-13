@@ -1,0 +1,24 @@
+{
+  "name": "kumparan_test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Alif Prasetyo Aji",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "http": "^0.0.1-security",
+    "https": "^1.0.0",
+    "ioredis": "^4.28.5",
+    "mysql2": "^2.3.3",
+    "redis": "^3.0.2",
+    "sequelize": "^6.16.1",
+    "util": "^0.12.4"
+  }
+}

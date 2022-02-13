@@ -1,0 +1,49 @@
+version: '3'
+
+volumes:
+  local_redis_data: {}
+
+services:
+  redis:
+    image: redis
+    container_name: cache_redis
+    expose:
+      - 6379
+  db:
+    image: mysql:8.0.17
+    restart: always
+    environment:
+       MYSQL_ROOT_PASSWORD: password
+       MYSQL_DATABASE: kumparan_test
+    ports:
+       - "3306:3306"
+    volumes:
+       - /your_local/path:/var/lib/mysql
+    networks:
+      - default
+
+  web:
+    build: ./web
+    environment:
+      MYSQL_DATABASE: kumparan_test
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_HOST: db
+      REDIS_URL: redis://cache_redis
+    links:
+      - redis
+      - db
+    ports:
+      - "5000:5000"
+    depends_on:
+      - redis
+      - db
+    restart: on-failure
+    networks:
+      - default
+
+volumes:
+  redis-data:
+
+networks:
+  default:

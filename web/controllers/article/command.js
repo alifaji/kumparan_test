@@ -15,12 +15,14 @@ exports.create = async (req, res) => {
 		created: new Date()
 	}
 
-	_data_article.create(param).then(result => {
+	_data_article.create(param).then(async result => {
 		if(result == null){
 			return res.status(500).send(response)
 		}
 
-		redisClients.setAsync(JSON.stringify({title: req.body.title, body: req.body.body}), JSON.stringify(param))
+		const getAll = await _data_article.findAll({order:[['updatedAt','DESC']]}); 
+
+		redisClient.setAsync(JSON.stringify({}), JSON.stringify(getAll))
 
 		response.message = "Success Created Article"
 		response.code = 200
